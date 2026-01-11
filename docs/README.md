@@ -6,5 +6,5 @@ When you think of online shopping, what things/objects do you find?
 2. Product 
 3. Shopping Cart
 
-4. Payment Process
-5. Order
+There are many more things that need to be represented, such as orders and how to handle payments. For now, let's focus on the three things listed above.
+ 
