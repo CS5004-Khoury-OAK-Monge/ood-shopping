@@ -1,13 +1,16 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class ProductTest {
     private Product rubberDucky;
+    private Product rubberSkirt;
 
     @BeforeEach
     public void setUp() {
         rubberDucky = new Product("Rubber Ducky", 17.99f, 1500);
+        rubberSkirt = new Product("Rubber Skirt", 3.49f, 10, "Acme");
     }
 
     @Test
@@ -41,4 +44,27 @@ public class ProductTest {
 
     }
 
+    @Test
+    public void testToString() {
+        String expected = "Rubber Ducky, 17.99";
+        assertEquals(expected, rubberDucky.toString());
+    }
+
+    @Test
+    public void testToStringWithManufacturer() {
+        String expected = "Rubber Skirt, 3.49, Acme";
+        assertEquals(expected, rubberSkirt.toString());
+    }
+
+    @Test
+    public void testEquals() {
+        assertFalse(rubberSkirt.equals(rubberDucky));
+
+        Product woodenDucky = new Product("Wooden Ducky", 17.99f, 1500);
+        assertFalse(woodenDucky.equals(rubberDucky));
+
+        Product identicalRubberDucky =
+                new Product("Rubber Ducky", 17.99f, 1500);
+        assertTrue(rubberDucky.equals(identicalRubberDucky));
+    }
 }

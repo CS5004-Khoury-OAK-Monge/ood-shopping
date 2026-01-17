@@ -21,11 +21,11 @@ See `docs/class-diagram.md`
 - access modifiers: public and private
 - has-a relationship
 - unit testing
-  - TODO: test the Product class
+  - test the Product class
 - Java class with `main()`: the start of our program
-  - TODO: define a class!
+  - define a class!
 - comments and documentation
-  - TODO: generate Javadoc
+  - generate Javadoc
 
 ## Module 2 topics
 TDD: Test-driven development
@@ -37,7 +37,7 @@ TDD: Test-driven development
 
 Other topics applied in this example
 - writing methods
-- `toString()` and `equals()`
+  - `toString()` and `equals()`
 - Javadoc
   - Generating it... try: `./gradlew tasks`
 - Methods with objects as parameters

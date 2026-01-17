@@ -61,5 +61,34 @@ public class Product {
         }
         // TODO: what if there's not enough in stock?
     }
+
+    /**
+     * Returns a String representation of Product that includes
+     * the name, price, and manufacturer. For example, the String
+     * "Rubber Ducky, 15.99, Adidas".
+     * @return a representation of the Product including name, price, and manufacturer
+     */
+    public String toString() {
+        if (this.manufacturer == null) {
+            return this.name + ", " + this.price;
+        } else {
+            return this.name + ", " + this.price + ", " + this.manufacturer;
+        }
+    }
+
+    /**
+     *
+     * @param otherProduct
+     * @return
+     */
+    public boolean equals(Product otherProduct) {
+        return (this.name.equals(otherProduct.name)
+                && this.price == otherProduct.price
+                && this.unitsInStock == otherProduct.unitsInStock
+                &&
+                (this.manufacturer == null ||
+                        this.manufacturer.equals(otherProduct.manufacturer))
+        );
+    }
 }
 
