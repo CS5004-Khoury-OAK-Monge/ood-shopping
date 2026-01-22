@@ -48,3 +48,4 @@ Other topics applied in this example
 - categorical data: `enum` in Java
 - the `switch` statement
 - protocols: Java interfaces
+- 

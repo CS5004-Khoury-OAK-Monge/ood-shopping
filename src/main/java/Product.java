@@ -17,20 +17,25 @@ public class Product {
     private float price;
     private int unitsInStock;
     private String manufacturer;
+
+    private ProductType type;
+
     // after attributes: constructors
 
-    public Product(String name, float price, int unitsInStock, String manufacturer) {
+    public Product(String name, float price, int unitsInStock, String manufacturer, ProductType type) {
         // TODO: What if numbers are not positive?
         this.name = name;
         this.price = price;
         this.unitsInStock = unitsInStock;
         this.manufacturer = manufacturer;
+        this.type = type;
     }
 
     public Product(String name, float price, int unitsInStock) {
         this.name = name;
         this.price = price;
         this.unitsInStock = unitsInStock;
+        this.type = ProductType.GROCERIES; // only a demo to show how to access the values in the enum
     }
 
     // after constructors: methods
@@ -77,9 +82,9 @@ public class Product {
      */
     public String toString() {
         if (this.manufacturer == null) {
-            return this.name + ", " + this.price;
+            return this.type + ": " + this.name + ", " + this.price;
         } else {
-            return this.name + ", " + this.price + ", " + this.manufacturer;
+            return this.type + ": " + this.name + ", " + this.price + ", " + this.manufacturer;
         }
     }
 
