@@ -43,3 +43,8 @@ Other topics applied in this example
 - Methods with objects as parameters
 - Methods with objects as return values
 - Exceptions
+
+## Module 3 topics
+- categorical data: `enum` in Java
+- the `switch` statement
+- protocols: Java interfaces

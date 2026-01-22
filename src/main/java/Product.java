@@ -48,10 +48,17 @@ public class Product {
         return price;
     }
 
-    public void setPrice(float price) {
+    /**
+     * Updates the price of the product to a new price
+     * @param price the new value for the product price
+     * @throws IllegalArgumentException when the value for price is negative, 0, or larger than 100
+     */
+    public void setPrice(float price) throws IllegalArgumentException {
         // TODO: need to resolve the problem where price is not positive
         if (price > 0 && price <= 100) {
             this.price = price;
+        } else { // ... communicate to whoever invoked the method that they did so incorrectly
+            throw new IllegalArgumentException("The value of price must be more than 0 and less than 100");
         }
     }
 
