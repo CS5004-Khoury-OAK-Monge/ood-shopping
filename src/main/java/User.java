@@ -12,6 +12,9 @@ public class User {
     private String email;
     private int age;
 
+    // A class variable to keep track of the number of users created
+    private static int numberOfUsers = 0;
+
     /**
      * Creates a User object with a value for each of its fields.
      * @param firstName first name of user
@@ -24,6 +27,8 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+
+        numberOfUsers++; // a new User has been created, so increment the counter
     }
 
     /**

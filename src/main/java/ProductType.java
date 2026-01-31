@@ -1,5 +1,5 @@
 public enum ProductType {
-    ELECTRONICS, COSMETICS, GROCERIES, FURNITURE;
+    ELECTRONICS, TOYS, GROCERIES, FURNITURE;
 
     public String toString() {
         String result;
@@ -7,8 +7,8 @@ public enum ProductType {
             case ELECTRONICS:
                 result = "Electronics";
                 break;
-            case COSMETICS:
-                result = "Cosmetics";
+            case TOYS:
+                result = "Toys";
                 break;
             case GROCERIES:
                 result = "Groceries";
