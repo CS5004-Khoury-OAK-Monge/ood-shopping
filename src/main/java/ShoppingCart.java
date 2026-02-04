@@ -1,12 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
+record Order(Product product, int quantity) { }
+
 public class ShoppingCart {
 
     private User customer; // establishes a "has-a" relationship
     // TODO: container of products that are in the cart, for now just one!
-    private Product item;
-    private int quantity; // the number of items
+
+    private List<Order> orders;
 
     public ShoppingCart(User customer) {
         this.customer = customer;
+        this.orders = new ArrayList<>(5);
     }
 
     public User getCustomer() {
@@ -14,12 +20,25 @@ public class ShoppingCart {
     }
 
     public void add(Product item, int quantity) {
+        if ( quantity <= 0 || quantity > item.getUnitsInStock() )
+            throw new IllegalArgumentException("Invalid quantity value");
+
         item.decreaseInventory(quantity);
-        this.item = item;
-        this.quantity = quantity;
+        this.orders.add(new Order(item, quantity));
     }
 
     public float getSubtotal() {
-        return this.item.getPrice() * this.quantity;
+        // FIXME!!
+        return 0; // this.item.getPrice() * this.quantity;
+    }
+
+    @Override
+    public String toString() {
+        // TODO: refactor this to use Stream map-filter-reduce strategy
+        String result = "";
+        for (Order p : orders) {
+            result += p + "; ";
+        }
+        return result;
     }
 }
