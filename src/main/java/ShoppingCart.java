@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 record Order(Product product, int quantity) { }
 
@@ -34,11 +36,17 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-        // TODO: refactor this to use Stream map-filter-reduce strategy
-        String result = "";
-        for (Order p : orders) {
-            result += p + "; ";
-        }
-        return result;
+//        String result = "";
+//        for (Order p : orders) {
+//            result += p + "; ";
+//        }
+//        return result;
+//
+
+        // code refactored to not use loop, instead we use Stream map-filter-reduce strategy
+
+        return orders.stream()
+                .map(Objects::toString)
+                .collect(Collectors.joining("; "));
     }
 }
