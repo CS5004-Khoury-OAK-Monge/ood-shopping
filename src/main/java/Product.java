@@ -11,7 +11,7 @@ is a multi-line comment
 * constants: ALL_UPPERCASE ... using _ to separate words
  */
 
-public class Product {
+public class Product implements Comparable<Product> {
     // attributes at the top
     private String name;
     private float price;
@@ -22,16 +22,18 @@ public class Product {
 
     // after attributes: constructors
 
-    public Product(String name, float price, int unitsInStock, ProductType type) {
+    public Product(String name, float price, int unitsInStock, ProductType type, String manufacturer) {
         // TODO: What if numbers are not positive?
-        this(name, price, unitsInStock);
+        this(name, price, unitsInStock, type);
         this.type = type;
+        this.manufacturer = manufacturer;
     }
 
-    public Product(String name, float price, int unitsInStock) {
+    public Product(String name, float price, int unitsInStock, ProductType type) {
         this.name = name;
         this.price = price;
         this.unitsInStock = unitsInStock;
+        this.type = type;
     }
 
     // after constructors: methods
@@ -97,6 +99,17 @@ public class Product {
                 (this.manufacturer == null ||
                         this.manufacturer.equals(otherProduct.manufacturer))
         );
+    }
+
+
+    /**
+     * Compares to other product by their name
+     * @param other the object to be compared.
+     * @return negative, 0, or positive integer depending on whether this is <, =, or > other
+     */
+    @Override
+    public int compareTo(Product other) {
+        return other.name.compareTo(this.name);
     }
 }
 

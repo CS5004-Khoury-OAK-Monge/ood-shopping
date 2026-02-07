@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.List;
+
 public class OnlineStore {
     public static void main(String[] args) {
 //        System.out.printf("Hello %s!\n", args[0]);
@@ -17,12 +20,31 @@ public class OnlineStore {
         // Add items to the shopping cart
         cart.add(ducky, 2);
         cart.add(iPhone, 3);
+        cart.add(spiderman, 1);
         System.out.println(cart);
 
+        // TODO: practice using Stream
         // Find and print the subtotal of items in the cart
 
+        // TODO: practice using Stream
         // Find and print most expensive product in the cart
 
         // Find and print the cart items that are less than $25
+        final float maxPrice = 25f;
+        List<Product> cheaperItems = cart.getItems(price -> price < maxPrice);
+        System.out.printf("Items less than $%.2f in cart: %s\n", maxPrice, cheaperItems);
+
+        cheaperItems.sort(new InventoryComparator());
+        System.out.printf("Sorted by amount in stock: %s\n", cheaperItems);
+
+        // Demo the natural ordering defined by Comparable implementation
+        Collections.sort(cheaperItems);
+        System.out.printf("Sorted by name: %s\n", cheaperItems);
+
+        // Demo a different ordering defined by a Comparator (using lambda expression)
+        cheaperItems.sort( (a, b) -> Float.compare(a.getPrice(), b.getPrice()));
+        System.out.printf("Sorted by price: %s\n", cheaperItems);
+
+
     }
 }
