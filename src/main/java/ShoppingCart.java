@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -9,11 +9,11 @@ record Order(Product product, int quantity) { }
 public class ShoppingCart {
 
     private User customer; // establishes a "has-a" relationship
-    private List<Order> orders;
+    private Set<Order> orders;
 
     public ShoppingCart(User customer) {
         this.customer = customer;
-        this.orders = new ArrayList<>(5);
+        this.orders = new HashSet<>();
     }
 
     public User getCustomer() {
@@ -23,6 +23,8 @@ public class ShoppingCart {
     public void add(Product item, int quantity) {
         if ( quantity <= 0 || quantity > item.getUnitsInStock() )
             throw new IllegalArgumentException("Invalid quantity value");
+
+        // FIXME: Problem: what if a product is added more than once?
 
         item.decreaseInventory(quantity);
         this.orders.add(new Order(item, quantity));
@@ -43,6 +45,11 @@ public class ShoppingCart {
                 .map(Order::product)
                 .filter(p -> pricePredicate.test(p.getPrice()))
                 .collect(Collectors.toList());
+    }
+
+    public List<Product> getItems() {
+        return getItems(p -> true);
+
     }
 
 

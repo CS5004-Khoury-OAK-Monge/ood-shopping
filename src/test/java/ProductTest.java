@@ -9,8 +9,8 @@ public class ProductTest {
 
     @BeforeEach
     public void setUp() {
-        rubberDucky = new Product("Rubber Ducky", 17.99f, 1500);
-        rubberSkirt = new Product("Rubber Skirt", 3.49f, 10, "Acme");
+        rubberDucky = new Product("Rubber Ducky", 17.99f, 1500, ProductType.TOYS);
+        rubberSkirt = new Product("Rubber Skirt", 3.49f, 10, ProductType.TOYS, "Acme");
     }
 
     @Test
@@ -46,13 +46,13 @@ public class ProductTest {
 
     @Test
     public void testToString() {
-        String expected = "Rubber Ducky, 17.99";
+        String expected = "Toys: Rubber Ducky, 17.99";
         assertEquals(expected, rubberDucky.toString());
     }
 
     @Test
     public void testToStringWithManufacturer() {
-        String expected = "Rubber Skirt, 3.49, Acme";
+        String expected = "Toys: Rubber Skirt, 3.49, Acme";
         assertEquals(expected, rubberSkirt.toString());
     }
 
@@ -60,11 +60,11 @@ public class ProductTest {
     public void testEquals() {
         assertFalse(rubberSkirt.equals(rubberDucky));
 
-        Product woodenDucky = new Product("Wooden Ducky", 17.99f, 1500);
+        Product woodenDucky = new Product("Wooden Ducky", 17.99f, 1500, ProductType.TOYS);
         assertFalse(woodenDucky.equals(rubberDucky));
 
         Product identicalRubberDucky =
-                new Product("Rubber Ducky", 17.99f, 1500);
+                new Product("Rubber Ducky", 17.99f, 1500, ProductType.TOYS);
         assertTrue(rubberDucky.equals(identicalRubberDucky));
     }
 }

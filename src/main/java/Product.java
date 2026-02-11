@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 // this is a single-line comment
 /* this
@@ -87,9 +89,9 @@ public class Product implements Comparable<Product> {
     }
 
     /**
-     *
-     * @param otherProduct
-     * @return
+     * Tests for equality based on four of the Product fields; it excludes ProductType
+     * @param otherProduct the Product to compare this to
+     * @return true if they're equal, false otherwise
      */
     public boolean equals(Product otherProduct) {
         return (this.name.equals(otherProduct.name)
@@ -99,6 +101,20 @@ public class Product implements Comparable<Product> {
                 (this.manufacturer == null ||
                         this.manufacturer.equals(otherProduct.manufacturer))
         );
+
+        // Alternatively, use EqualsBuilder
+        // See: https://www.codeproject.com/articles/Apache-Commons-EqualsBuilder-and-HashCodeBuilder#comments-section
+        // return EqualsBuilder.reflectionEquals(this, otherProduct);
+    }
+
+
+    /**
+     * Returns the hash code value for this Product
+     * @return the hash code value for this Product
+     */
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
 
