@@ -3,7 +3,6 @@ import java.util.List;
 
 public class OnlineStore {
     public static void main(String[] args) {
-//        System.out.printf("Hello %s!\n", args[0]);
 
         Product ducky = new Product("Yellow Rubber Ducky", 17.99f, 1500, ProductType.TOYS);
         Product spiderman = new Product("Spiderman Action Figure", 9.99f, 225, ProductType.TOYS);
@@ -11,9 +10,6 @@ public class OnlineStore {
         Product ergonomicChair = new Product("Herman Miller 2000", 450.49f, 50, ProductType.FURNITURE);
 
         User professor = new User("Alvaro", "Monge", "a.monge@nu.edu", 18);
-
-//        System.out.println("Hello " + ducky);
-//        System.out.println("Hello " + professor);
 
         ShoppingCart cart = new ShoppingCart(professor);
 

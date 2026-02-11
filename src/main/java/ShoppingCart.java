@@ -48,14 +48,8 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-//        String result = "";
-//        for (Order p : orders) {
-//            result += p + "; ";
-//        }
-//        return result;
-//
-
-        // code refactored to not use loop, instead we use Stream map-filter-reduce strategy
+        // code refactored to not use loop and practice using
+        // Stream map-filter-reduce strategy
 
         return orders.stream()
                 .map(Objects::toString)
