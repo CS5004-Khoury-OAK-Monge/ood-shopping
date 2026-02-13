@@ -1,19 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-record Order(Product product, int quantity) { }
 
 public class ShoppingCart {
 
     private User customer; // establishes a "has-a" relationship
-    private List<Order> orders;
+    private Map<Product, Integer> orders;
 
     public ShoppingCart(User customer) {
         this.customer = customer;
-        this.orders = new ArrayList<>(5);
+        this.orders = new HashMap<>();
     }
 
     public User getCustomer() {
@@ -25,7 +21,7 @@ public class ShoppingCart {
             throw new IllegalArgumentException("Invalid quantity value");
 
         item.decreaseInventory(quantity);
-        this.orders.add(new Order(item, quantity));
+        this.orders.put(item, quantity);
     }
 
     public float getSubtotal() {
@@ -39,26 +35,18 @@ public class ShoppingCart {
      * @return the items satisfying the predicate on price
      */
     public List<Product> getItems(Predicate<Float> pricePredicate) {
-        return this.orders.stream()
-                .map(Order::product)
-                .filter(p -> pricePredicate.test(p.getPrice()))
+        return this.orders.keySet().stream()
+                .filter(product -> pricePredicate.test(product.getPrice()))
                 .collect(Collectors.toList());
     }
 
 
     @Override
     public String toString() {
-//        String result = "";
-//        for (Order p : orders) {
-//            result += p + "; ";
-//        }
-//        return result;
-//
-
         // code refactored to not use loop, instead we use Stream map-filter-reduce strategy
 
-        return orders.stream()
-                .map(Objects::toString)
+        return orders.entrySet().stream()
+                .map(e -> String.format("%s, quantity=%d", e.getKey(), e.getValue()))
                 .collect(Collectors.joining("; "));
     }
 }
