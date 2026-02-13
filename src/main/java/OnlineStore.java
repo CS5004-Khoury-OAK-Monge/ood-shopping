@@ -1,5 +1,6 @@
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class OnlineStore {
     public static void main(String[] args) {
@@ -31,19 +32,19 @@ public class OnlineStore {
 
         // Find and print the cart items that are less than $25
         final float maxPrice = 25f;
-        List<Product> cheaperItems = cart.getItems(price -> price < maxPrice);
+        List<Map.Entry<Product, Integer>> cheaperItems = cart.getItems(price -> price < maxPrice);
         System.out.printf("Items less than $%.2f in cart: %s\n", maxPrice, cheaperItems);
 
-        cheaperItems.sort(new InventoryComparator());
-        System.out.printf("Sorted by amount in stock: %s\n", cheaperItems);
-
-        // Demo the natural ordering defined by Comparable implementation
-        Collections.sort(cheaperItems);
-        System.out.printf("Sorted by name: %s\n", cheaperItems);
-
-        // Demo a different ordering defined by a Comparator (using lambda expression)
-        cheaperItems.sort( (a, b) -> Float.compare(a.getPrice(), b.getPrice()));
-        System.out.printf("Sorted by price: %s\n", cheaperItems);
+//        cheaperItems.sort(new InventoryComparator());
+//        System.out.printf("Sorted by amount in stock: %s\n", cheaperItems);
+//
+//        // Demo the natural ordering defined by Comparable implementation
+//        Collections.sort(cheaperItems);
+//        System.out.printf("Sorted by name: %s\n", cheaperItems);
+//
+//        // Demo a different ordering defined by a Comparator (using lambda expression)
+//        cheaperItems.sort( (a, b) -> Float.compare(a.getPrice(), b.getPrice()));
+//        System.out.printf("Sorted by price: %s\n", cheaperItems);
 
 
     }

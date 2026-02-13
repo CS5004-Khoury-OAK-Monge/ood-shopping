@@ -4,8 +4,8 @@ import java.util.stream.Collectors;
 
 public class ShoppingCart {
 
-    private User customer; // establishes a "has-a" relationship
-    private Map<Product, Integer> orders;
+    private final User customer; // establishes a "has-a" relationship
+    private final Map<Product, Integer> orders;
 
     public ShoppingCart(User customer) {
         this.customer = customer;
@@ -21,12 +21,12 @@ public class ShoppingCart {
             throw new IllegalArgumentException("Invalid quantity value");
 
         item.decreaseInventory(quantity);
-        this.orders.put(item, quantity);
+        this.orders.merge(item, quantity, Integer::sum);
     }
 
     public float getSubtotal() {
         // FIXME using Stream()
-        return 0; // this.item.getPrice() * this.quantity;
+        return 0;
     }
 
     /**
@@ -34,10 +34,14 @@ public class ShoppingCart {
      * @param pricePredicate the test on price that must be satisfied by item in the cart to be retrieved
      * @return the items satisfying the predicate on price
      */
-    public List<Product> getItems(Predicate<Float> pricePredicate) {
-        return this.orders.keySet().stream()
-                .filter(product -> pricePredicate.test(product.getPrice()))
+    public List<Map.Entry<Product, Integer>> getItems(Predicate<Float> pricePredicate) {
+        return this.orders.entrySet().stream()
+                .filter(entry -> pricePredicate.test(entry.getKey().getPrice()))
                 .collect(Collectors.toList());
+    }
+
+    public List<Map.Entry<Product, Integer>> getItems() {
+        return this.getItems(quantity -> true);
     }
 
 
