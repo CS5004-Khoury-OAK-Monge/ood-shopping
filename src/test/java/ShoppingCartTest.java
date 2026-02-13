@@ -28,6 +28,7 @@ public class ShoppingCartTest {
         cart.add(products.getFirst(), 5);
         List<Product> contents = cart.getItems();
         assertEquals(1, contents.size());
+        // More to be tested, such as ensuring the quantity is 5 and the product is the one added
     }
 
     @Test
@@ -42,7 +43,10 @@ public class ShoppingCartTest {
         cart.add(products.getFirst(), 5);
         cart.add(products.getFirst(), 2);
 
-        // FIXME: What behavior do we want?
-        assertTrue(false);
+        List<Order> contents = cart.getOrders(quantity -> true);
+
+        assertEquals(1, contents.size());
+        assertEquals(products.getFirst(), contents.getFirst().product());
+        assertEquals(2, contents.getFirst().quantity());
     }
 }

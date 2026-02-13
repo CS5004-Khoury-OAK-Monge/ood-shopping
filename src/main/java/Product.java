@@ -15,27 +15,26 @@ is a multi-line comment
 
 public class Product implements Comparable<Product> {
     // attributes at the top
-    private String name;
+    private final String name;
     private float price;
     private int unitsInStock;
-    private String manufacturer;
+    private final String manufacturer;
 
-    private ProductType type;
+    private final ProductType type;
 
     // after attributes: constructors
 
     public Product(String name, float price, int unitsInStock, ProductType type, String manufacturer) {
         // TODO: What if numbers are not positive?
-        this(name, price, unitsInStock, type);
+        this.name = name;
+        this.price = price;
+        this.unitsInStock = unitsInStock;
         this.type = type;
         this.manufacturer = manufacturer;
     }
 
     public Product(String name, float price, int unitsInStock, ProductType type) {
-        this.name = name;
-        this.price = price;
-        this.unitsInStock = unitsInStock;
-        this.type = type;
+        this(name, price, unitsInStock, type, null);
     }
 
     // after constructors: methods
@@ -82,29 +81,34 @@ public class Product implements Comparable<Product> {
      */
     public String toString() {
         if (this.manufacturer == null) {
-            return this.type + ": " + this.name + ", " + this.price;
+            return this.type + ": " + this.name + ", " + this.price + ", qoh=" + this.getUnitsInStock();
         } else {
-            return this.type + ": " + this.name + ", " + this.price + ", " + this.manufacturer;
+            return this.type + ": " + this.name + ", " + this.price + ", qoh=" + this.getUnitsInStock() + ", " + this.manufacturer;
         }
     }
 
     /**
      * Tests for equality based on four of the Product fields; it excludes ProductType
-     * @param otherProduct the Product to compare this to
+     * @param other the Product to compare this to
      * @return true if they're equal, false otherwise
      */
-    public boolean equals(Product otherProduct) {
-        return (this.name.equals(otherProduct.name)
-                && this.price == otherProduct.price
-                && this.unitsInStock == otherProduct.unitsInStock
-                &&
-                (this.manufacturer == null ||
-                        this.manufacturer.equals(otherProduct.manufacturer))
-        );
+    @Override
+    public boolean equals(Object other) {
+
+        return EqualsBuilder.reflectionEquals(this, other);
+//        if (this == other) return true; // Reference equality check
+//        if (!(other instanceof Product otherProduct)) return false;
+//        return (this.name.equals(otherProduct.name)
+//                && Float.compare(this.price, otherProduct.price) == 0
+//                && this.unitsInStock == otherProduct.unitsInStock
+//                &&
+//                (this.manufacturer == null ||
+//                        this.manufacturer.equals(otherProduct.manufacturer))
+//        );
 
         // Alternatively, use EqualsBuilder
         // See: https://www.codeproject.com/articles/Apache-Commons-EqualsBuilder-and-HashCodeBuilder#comments-section
-        // return EqualsBuilder.reflectionEquals(this, otherProduct);
+        // return EqualsBuilder.reflectionEquals(this, other);
     }
 
 
@@ -114,7 +118,10 @@ public class Product implements Comparable<Product> {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        // use only the name, type and manufacturer as other fields may change in value!
+        // Necessary to guarantee hash code will remain the same when calculated after changes
+        // to price and unitsInStock
+        return HashCodeBuilder.reflectionHashCode(this, new String[] {"price", "unitsInStock"});
     }
 
 

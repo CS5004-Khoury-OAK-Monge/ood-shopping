@@ -1,10 +1,26 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-record Order(Product product, int quantity) { }
+record Order(Product product, int quantity) {
+    @Override
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+
+        if (other instanceof Order) {
+            return this.product.equals(((Order) other).product);
+        }
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.product.hashCode();
+    }}
 
 public class ShoppingCart {
 
@@ -26,8 +42,21 @@ public class ShoppingCart {
 
         // FIXME: Problem: what if a product is added more than once?
 
+        Order productOrder = new Order(item, quantity);
+        if (this.orders.contains(productOrder)) { // if already in cart
+            // it's not possible to retrieve the Order that is in the set!
+            // thus, we don't know the quantity being ordered, so we cannot
+            // implement the cumulative effect of adding the same product twice
+            // Instead, need to replace the order to have this new quantity
+            this.orders.remove(productOrder);
+
+            // ERROR: It's not possible to increase the inventory by the amount
+            // of the order that was removed, because we can't recover what that
+            // order was since a set doesn't have operations to retrieve such an object!
+        }
+        this.orders.add(productOrder);
         item.decreaseInventory(quantity);
-        this.orders.add(new Order(item, quantity));
+
     }
 
     public float getSubtotal() {
@@ -49,7 +78,12 @@ public class ShoppingCart {
 
     public List<Product> getItems() {
         return getItems(p -> true);
+    }
 
+    public List<Order> getOrders(Predicate<Integer> quantityPredicate) {
+        return this.orders.stream()
+                .filter(o -> quantityPredicate.test(o.quantity()))
+                .collect(Collectors.toList());
     }
 
 
