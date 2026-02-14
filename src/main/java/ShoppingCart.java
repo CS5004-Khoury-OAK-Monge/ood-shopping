@@ -25,7 +25,7 @@ public class ShoppingCart {
     }
 
     public float getSubtotal() {
-        // FIXME using Stream()
+        // FIXME: practice using Stream()
         return 0;
     }
 
