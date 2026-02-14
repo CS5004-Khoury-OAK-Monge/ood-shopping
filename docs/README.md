@@ -48,4 +48,14 @@ Other topics applied in this example
 - categorical data: `enum` in Java
 - the `switch` statement
 - protocols: Java interfaces
-- 
+
+## Module 4, 5 and 6 topics
+- Uses Generics
+- `Order` as a record class with fields for the product and the quantity ordered 
+- cart as a `List<Order>`
+- cart as a `Set<Order>`
+- cart as a `Map<Product, Integer>`
+- Using `stream()` and higher order functions
+- Implementations of `equals()` and `hashCode()` methods
+- The `Comparable` interface and implementation of `compare()`
+- The `Comparator` interface and implementation of `compareTo()`
