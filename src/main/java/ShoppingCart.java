@@ -29,7 +29,7 @@ public class ShoppingCart {
 
     public ShoppingCart(User customer) {
         this.customer = customer;
-        this.orders = new HashSet<>();
+        this.orders = new HashSet<>();  // alternatively:  TreeSet<>()
     }
 
     public User getCustomer() {

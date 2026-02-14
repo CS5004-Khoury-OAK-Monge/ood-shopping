@@ -17,7 +17,7 @@ public class ShoppingCartTest {
         customer = new User("Mary", "Jane", "mj@marvel.com", 22);
         cart = new ShoppingCart(customer);
         products = new ArrayList<>(List.of(
-                new Product("Hot Wheels car", 4.99f, 100, ProductType.TOYS, "Mattel"),
+                new Product("Hot Wheels car", 4.99f, 10, ProductType.TOYS, "Mattel"),
                 new Product("Hot Wheels track", 15.49f, 20, ProductType.TOYS),
                 new Product("Google Pixel 10", 599f, 15, ProductType.ELECTRONICS)
         ));
@@ -40,13 +40,23 @@ public class ShoppingCartTest {
 
     @Test
     public void testDuplicateProduct() {
-        cart.add(products.getFirst(), 5);
-        cart.add(products.getFirst(), 2);
+
+
+        Product p = products.getFirst();
+        int currentInventory = p.getUnitsInStock();
+
+        cart.add(p, 5);
+        cart.add(p, 2);
 
         List<Order> contents = cart.getOrders(quantity -> true);
 
         assertEquals(1, contents.size());
-        assertEquals(products.getFirst(), contents.getFirst().product());
+        assertEquals(p, contents.getFirst().product());
         assertEquals(2, contents.getFirst().quantity());
+
+        // TODO: Is this test complete?
+        // NO!!! We need to verify the units in stock for the product has the correct value
+        assertEquals(currentInventory - 2, p.getUnitsInStock());
+
     }
 }
