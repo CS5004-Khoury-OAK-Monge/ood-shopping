@@ -48,15 +48,22 @@ public class ShoppingCartTest {
         cart.add(p, 5);
         cart.add(p, 2);
 
+        // We expect the second request to add the same product to
+        // replace the first request, so the cart should have only
+        // one order for product p for a quantity of 2
+
         List<Order> contents = cart.getOrders(quantity -> true);
 
         assertEquals(1, contents.size());
         assertEquals(p, contents.getFirst().product());
         assertEquals(2, contents.getFirst().quantity());
 
-        // TODO: Is this test complete?
+        // Is this test complete?
         // NO!!! We need to verify the units in stock for the product has the correct value
         assertEquals(currentInventory - 2, p.getUnitsInStock());
+
+        // The above test shows that the shopping cart is incorrect.
+        // As explained in class, this is due to the use of a Set.
 
     }
 }
